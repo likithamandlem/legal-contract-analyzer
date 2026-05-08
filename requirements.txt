@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+python-multipart
+pydantic>=2.7.4
+python-dotenv
+langchain
+langchain-community
+langchain-text-splitters
+chromadb
+pypdf
+tiktoken
+sentence-transformers
+groq
+google-genai
+streamlit
+requests
+requests
