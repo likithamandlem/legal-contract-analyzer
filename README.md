@@ -20,7 +20,7 @@ The system allows users to upload PDF contracts, extract and analyze clauses, de
 - Legal Q&A chatbot using RAG
 
 ## 🔍 Semantic Search
-- OpenAI embeddings (`text-embedding-3-small`)
+- Sentence Transformers embeddings (all-MiniLM-L6-v2)
 - ChromaDB vector storage
 - Context-aware retrieval pipeline
 
@@ -47,13 +47,13 @@ Text Extraction
     ↓
 Chunking
     ↓
-OpenAI Embeddings
+Sentence Transformers Embeddings
     ↓
 ChromaDB Vector Store
     ↓
 Retriever
     ↓
-GPT-4o LLM
+Llama 3.3 70B (Groq) LLM
     ↓
 ------------------------------------------------
 | Summary | Clause Extraction | Risk Detection |
@@ -69,10 +69,9 @@ GPT-4o LLM
 |---|---|
 | Backend | FastAPI |
 | Frontend | Streamlit |
-| LLM | OpenAI GPT-4o |
-| Embeddings | text-embedding-3-small |
+| LLM | Llama 3.3 70B via Groq |
+| Embeddings | Sentence Transformers (all-MiniLM-L6-v2) |
 | Vector Database | ChromaDB |
-| Frameworks | LangChain |
 | PDF Parsing | PyPDF |
 | Deployment | Docker |
 | Language | Python |
@@ -168,7 +167,8 @@ pip install -r requirements.txt
 Create a `.env` file:
 
 ```env
-OPENAI_API_KEY=your_openai_api_key_here
+GROQ_API_KEY=your_groq_api_key_here
+GOOGLE_API_KEY=your_google_api_key_here
 CHROMA_DB_PATH=./vectorstore
 UPLOAD_DIR=./uploads
 ```
@@ -180,19 +180,19 @@ UPLOAD_DIR=./uploads
 ## Run FastAPI Backend
 
 ```bash
-uvicorn app.main:app --reload
+uvicorn app.main:app --reload --port 8001
 ```
 
 Backend available at:
 
 ```text
-http://127.0.0.1:8000
+http://127.0.0.1:8001
 ```
 
 Swagger API Docs:
 
 ```text
-http://127.0.0.1:8000/docs
+http://127.0.0.1:8001/docs
 ```
 
 ---
@@ -222,7 +222,7 @@ docker build -t legal-contract-analyzer .
 ## Run Docker Container
 
 ```bash
-docker run -p 8001:8001 legal-contract-analyzer
+docker run -p 8001:8001 --env-file .env legal-contract-analyzer
 ```
 
 Docker API:
@@ -265,15 +265,16 @@ http://localhost:8001/docs
 - Retrieval-aware AI chatbot
 - Production-style backend organization
 - Dockerized for deployment readiness
+- Optimized for low-latency inference using Groq APIs
 
 ---
 
 # 📈 Performance Notes
 
-- Uses OpenAI `text-embedding-3-small` for semantic retrieval
+- Uses Sentence Transformers (all-MiniLM-L6-v2) for local embeddings — no API cost
 - Optimized chunking strategy for retrieval relevance
 - Supports large PDF contracts efficiently
-- Average response latency depends on OpenAI API response time
+- Average response latency depends on Groq API response time
 
 ---
 
@@ -281,7 +282,7 @@ http://localhost:8001/docs
 
 - Handling large multi-page PDF contracts efficiently during text extraction and embedding generation
 - Optimizing chunk size and overlap to improve retrieval relevance while reducing hallucinations
-- Managing OpenAI API rate limits and token usage during development and testing
+- Managing API rate limits and token usage during development and testing
 - Resolving ChromaDB collection conflicts caused by repeated uploads and re-indexing
 - Handling dependency and SDK version conflicts across LLM-related packages
 - Ensuring retrieved context remained accurate and relevant for legal-domain queries
@@ -323,6 +324,7 @@ Through this project, I gained hands-on experience with:
 - Semantic search systems
 - Docker containerization
 - Production-style AI system design
+- Low-latency inference workflows using Groq APIs
 
 ---
 
@@ -344,5 +346,5 @@ This project is licensed under the MIT License.
 
 **Likitha Mandlem**
 
-GitHub:  
+GitHub:
 https://github.com/likithamandlem
