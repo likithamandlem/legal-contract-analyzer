@@ -6,6 +6,16 @@ The system allows users to upload PDF contracts, extract and analyze clauses, de
 
 ---
 
+# 🌐 Live Demo
+
+Frontend:
+https://legal-contract-analyzer-aqgvfvgzlzsnuvxreyd5uv.streamlit.app/
+
+API Docs:
+https://legal-contract-analyzer-g658.onrender.com/docs
+
+---
+
 # 🚀 Features
 
 ## 📄 Contract Processing
@@ -73,7 +83,7 @@ Llama 3.3 70B (Groq) LLM
 | Embeddings | Sentence Transformers (all-MiniLM-L6-v2) |
 | Vector Database | ChromaDB |
 | PDF Parsing | PyPDF |
-| Deployment | Docker |
+| Deployment | Docker, Streamlit Cloud, Render |
 | Language | Python |
 
 ---
@@ -113,7 +123,6 @@ legal-contract-analyzer/
 │
 ├── vectorstore/
 ├── uploads/
-├── screenshots/
 ├── tests/
 │
 ├── Dockerfile
@@ -230,18 +239,6 @@ Docker API:
 ```text
 http://localhost:8001/docs
 ```
-
----
-
-# 📸 Screenshots
-
-## Contract Analysis
-
-![Analysis](screenshots/analysis.png)
-
-## Chat Interface
-
-![Chat](screenshots/chat.png)
 
 ---
 
